@@ -1,0 +1,5 @@
+~~ DO NOT EDIT THE FIRST 2 LINES
+~~ FORMAT: <channel name> | <group name> | <logo> | <tvg-id>
+
+三立LIVE新闻 | taiwan | http://epg.51zmt.top:8000/tb1/gt/SETNews.png | 三立LIVE新闻
+https://www.youtube.com/@setnews/live
