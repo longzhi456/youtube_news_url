@@ -5,9 +5,9 @@ name: M3U getUrls
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '0 0/3 * * *'
+    - cron: '0 */2 * * *'
 
-  pull_request:
+  pull_request:  
     branches:
       - main
 
