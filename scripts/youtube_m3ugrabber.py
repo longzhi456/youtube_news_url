@@ -19,7 +19,7 @@ def grab(youtube_url, timeout=15):
         'quiet': True,  # 禁止冗长输出
         'format': 'best',  # 选择最佳质量的流
         'extractor_args': {'youtube': {'live': True}},  # 提取直播流
-        'cookiefile': "../youtube.json"  # 提供 cookies 文件
+        'cookiefile': "../netscape.txt"  # 提供 cookies 文件
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
