@@ -22,6 +22,7 @@ def grab(url, fallback_url="https://xxxx.m3u", timeout=15):
         print(match.group(0))
         return 
     else:
+        print(fallback_url)
         return
 
 with open('../youtube_channel_info.txt') as f:
