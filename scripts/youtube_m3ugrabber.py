@@ -5,6 +5,7 @@ import os
 import sys
 import re
 import yt_dlp
+import json
 
 windows = False
 if 'win' in sys.platform:
