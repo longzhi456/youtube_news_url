@@ -6,32 +6,29 @@ import sys
 import re
 import yt_dlp
 import json
+from bs4 import BeautifulSoup
 
 windows = False
 if 'win' in sys.platform:
     windows = True
 
 def grab(youtube_url, timeout=15):
-    with open("../youtube.json", 'r') as js:
-        cookies = json.load(js)
-        
-    ydl_opts = {
-        'quiet': True,  # 禁止冗长输出
-        'format': 'best',  # 选择最佳质量的流
-        'extractor_args': {'youtube': {'live': True}},  # 提取直播流
-        'cookiefile': "../netscape.txt"  # 提供 cookies 文件
-    }
+    # 发起请求获取页面内容
+    response = requests.get(url)
+    html_content = response.text
+    # 使用 BeautifulSoup 解析 HTML
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(youtube_url, download=False)
-        m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
-        if m3u8_url:
-            print(m3u8_url)
-            return 
-        else:
-            print("https://xxxx.m3u8")
-            return    
-
+    # 使用正则表达式搜索所有的 m3u8 地址
+    m3u8_url = re.findall(r'https?://[^\s]+\.m3u8', html_content)
+    
+    if m3u8_url:
+        print(m3u8_url[0])
+        return 
+    else:
+        print("https://xxxx.m3u8")
+        return   
+         
 with open('../youtube_channel_info.txt') as f:
     for line in f:
         line = line.strip()
