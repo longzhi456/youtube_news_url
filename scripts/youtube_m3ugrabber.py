@@ -12,7 +12,7 @@ windows = False
 if 'win' in sys.platform:
     windows = True
 
-def grab(youtube_url, timeout=15):
+def grab(url, timeout=15):
     # 发起请求获取页面内容
     response = requests.get(url)
     html_content = response.text
