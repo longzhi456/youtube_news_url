@@ -10,7 +10,7 @@ windows = False
 if 'win' in sys.platform:
     windows = True
 
-def grab(url, timeout=15):
+def grab(youtube_url, timeout=15):
     ydl_opts = {
         'quiet': True,  # 禁止输出过多信息
         'format': 'best',  # 选择最佳质量
