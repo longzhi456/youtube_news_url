@@ -9,7 +9,7 @@ windows = False
 if 'win' in sys.platform:
     windows = True
 
-def grab(url, fallback_url="https://xxxx.m3u", timeout=15)):
+def grab(url, fallback_url="https://xxxx.m3u", timeout=15):
     try:
         response = requests.get(url, timeout=timeout).text
     except requests.RequestException:
