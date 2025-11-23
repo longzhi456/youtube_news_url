@@ -11,13 +11,21 @@ if 'win' in sys.platform:
     windows = True
 
 def grab(youtube_url, timeout=15):
-    ydl_opts = { }
+    with open("../youtube.json", 'r') as js:
+        cookies = json.load(js)
+        
+    ydl_opts = {
+        'quiet': True,  # 禁止冗长输出
+        'format': 'best',  # 选择最佳质量的流
+        'extractor_args': {'youtube': {'live': True}},  # 提取直播流
+        'cookiefile': "../youtube.json"  # 提供 cookies 文件
+    }
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:       
         info_dict = ydl.extract_info(youtube_url, download=False)
         m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
-        if info_dict:
-            print(info_dict)
+        if m3u8_url:
+            print(m3u8_url)
             return 
         else:
             print("https://xxxx.m3u8")
