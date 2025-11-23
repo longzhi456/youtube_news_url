@@ -25,7 +25,7 @@ def grab(youtube_url, timeout=15):
         m3u8_url = result.stdout.strip()  # 去除输出中的多余空白字符
         if m3u8_url:
             print(m3u8_url)
-            return        
+            return
         else:
             print("https://xxxx.m3u8")
             return None
