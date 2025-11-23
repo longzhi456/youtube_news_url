@@ -11,17 +11,13 @@ if 'win' in sys.platform:
     windows = True
 
 def grab(youtube_url, timeout=15):
-    ydl_opts = {
-        'quiet': True,  # 禁止输出过多信息
-        'format': 'best',  # 选择最佳质量
-        'extractor_args': {'youtube': {'live': True}}  # 提取直播流
-    }
+    ydl_opts = { }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(youtube_url, download=False)
         m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
-        if m3u8_url:
-            print(m3u8_url)
+        if info_dict:
+            print(info_dict)
             return 
         else:
             print("https://xxxx.m3u8")
