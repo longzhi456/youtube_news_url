@@ -2,6 +2,8 @@
 
 echo $(dirname $0)
 
+pip install yt-dlp
+
 if ! python3 -c "import requests" &>/dev/null; then
     python3 -m pip install requests
 fi
