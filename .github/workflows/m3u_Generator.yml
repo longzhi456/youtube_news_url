@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: generate
+name: M3U generator
 
 # Controls when the action will run. 
 on:
@@ -50,4 +50,4 @@ jobs:
       - name: commit & push
         run: |
           git commit -m "links are updated"
-          git push
+          git push -f
