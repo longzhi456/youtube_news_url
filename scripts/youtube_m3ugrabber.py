@@ -21,7 +21,7 @@ def grab(youtube_url, timeout=15):
         'cookiefile': "../youtube.json"  # 提供 cookies 文件
     }
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:       
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(youtube_url, download=False)
         m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
         if m3u8_url:
