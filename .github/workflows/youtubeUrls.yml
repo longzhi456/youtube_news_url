@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: M3U getUrls
+name: generate
 
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 0/3 * * *'
 
-  pull_request:  
+  pull_request:
     branches:
       - main
 
@@ -50,4 +50,4 @@ jobs:
       - name: commit & push
         run: |
           git commit -m "links are updated"
-          git push -f
+          git push
