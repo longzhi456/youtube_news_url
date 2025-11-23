@@ -2,7 +2,11 @@
 
 echo $(dirname $0)
 
-python3 -m pip install requests
+if ! python3 -c "import requests" &>/dev/null; then
+    python3 -m pip install requests
+fi
+
+set -e  # 脚本中任何错误都会导致立即停止
 
 cd $(dirname $0)/scripts/
 
