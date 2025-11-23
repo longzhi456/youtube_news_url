@@ -7,27 +7,31 @@ import re
 import yt_dlp
 import json
 from bs4 import BeautifulSoup
+import subprocess
 
 windows = False
 if 'win' in sys.platform:
     windows = True
 
-def grab(url, timeout=15):
-    # 发起请求获取页面内容
-    response = requests.get(url)
-    html_content = response.text
-    # 使用 BeautifulSoup 解析 HTML
-    soup = BeautifulSoup(html_content, 'html.parser')
-
-    # 使用正则表达式搜索所有的 m3u8 地址
-    m3u8_url = re.findall(r'https?://[^\s]+\.m3u8', html_content)
-    
-    if m3u8_url:
-        print(m3u8_url[0])
-        return 
-    else:
+def grab(youtube_url, timeout=15):
+    try:
+        # 运行 yt-dlp 命令
+        result = subprocess.run(
+            ['yt-dlp', '-f', 'best', '--get-url', youtube_url], 
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+        )
+        
+        # 获取并返回结果
+        m3u8_url = result.stdout.strip()  # 去除输出中的多余空白字符
+        if m3u8_url:
+            print(m3u8_url)
+            return        
+        else:
+            print("https://xxxx.m3u8")
+            return None
+    except Exception as e:
         print("https://xxxx.m3u8")
-        return   
+        return None
          
 with open('../youtube_channel_info.txt') as f:
     for line in f:
