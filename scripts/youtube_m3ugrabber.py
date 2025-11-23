@@ -19,9 +19,10 @@ def grab(url, fallback_url="https://xxxx.m3u", timeout=15):
     # 正则匹配 .m3u8 链接
     match = re.search(r'https://[^\'"\s]+\.m3u8', response)
     if match:
-        return match.group(0)
+        print(match.group(0))
+        return 
     else:
-        return fallback_url
+        return
 
 with open('../youtube_channel_info.txt') as f:
     for line in f:
