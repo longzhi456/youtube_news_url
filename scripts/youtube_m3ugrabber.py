@@ -4,26 +4,28 @@ import requests
 import os
 import sys
 import re
+import yt_dlp
 
 windows = False
 if 'win' in sys.platform:
     windows = True
 
-def grab(url, fallback_url="https://xxxx.m3u", timeout=15):
-    try:
-        response = requests.get(url, timeout=timeout).text
-    except requests.RequestException:
-        # 请求失败直接返回备用链接
-        return fallback_url
-        
-    # 正则匹配 .m3u8 链接
-    match = re.search(r'https://[^\'"\s]+\.m3u8', response)
-    if match:
-        print(match.group(0))
-        return 
-    else:
-        print(fallback_url)
-        return
+def grab(url, timeout=15):
+    ydl_opts = {
+        'quiet': True,  # 禁止输出过多信息
+        'format': 'best',  # 选择最佳质量
+        'extractor_args': {'youtube': {'live': True}}  # 提取直播流
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(youtube_url, download=False)
+        m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
+        if m3u8_url:
+            print(m3u8_url)
+            return 
+        else:
+            print("https://xxxx.m3u8")
+            return    
 
 with open('../youtube_channel_info.txt') as f:
     for line in f:
