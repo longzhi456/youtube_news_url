@@ -2,7 +2,8 @@
 
 echo $(dirname $0)
 
-pip install yt-dlp
+#pip install yt-dlp
+python3 -m pip install -U "yt-dlp[default]"
 
 if ! python3 -c "import requests" &>/dev/null; then
     python3 -m pip install requests
