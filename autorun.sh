@@ -3,8 +3,9 @@
 echo $(dirname $0)
 
 python3 -m pip install requests
-python3 -m pip install pandas
 
 cd $(dirname $0)/scripts/
 
-python3 youtube_to_m3u.py
+python3 youtube_m3ugrabber.py > ../youtube.m3u
+
+echo m3u grabbed
