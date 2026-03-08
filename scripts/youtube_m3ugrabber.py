@@ -5,8 +5,7 @@ import requests
 with open('../youtube_channel_info.txt') as f:
     for line in f:
         line = line.strip()
-        if not line:
-            continue
+
         if line.startswith('#EXTINF:-1'):
             print('https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u')
         else
