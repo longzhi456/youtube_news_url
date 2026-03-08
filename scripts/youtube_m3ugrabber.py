@@ -33,6 +33,6 @@ with open('../youtube_channel_info.txt') as f:
         if not line:
             continue
         if line.startswith('#EXTINF:'):
-            print(f'\n' + line)
+            print(f'\nttttt')
         else:
-            grab(line)
+            print(f'\nxxxx')
