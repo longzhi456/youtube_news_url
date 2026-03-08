@@ -2,16 +2,7 @@
 
 echo $(dirname $0)
 
-#pip install yt-dlp
-python3 -m pip install -U "yt-dlp[default]"
-python3 -m pip install beautifulsoup4
-python3 -m pip install youtube-dl
-
-if ! python3 -c "import requests" &>/dev/null; then
-    python3 -m pip install requests
-fi
-
-set -e  # 脚本中任何错误都会导致立即停止
+python3 -m pip install requests
 
 cd $(dirname $0)/scripts/
 
