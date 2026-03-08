@@ -1,46 +1,38 @@
 #! /usr/bin/python3
 
 import requests
-import os
-import sys
-import re
-import yt_dlp
-import json
-from bs4 import BeautifulSoup
-import subprocess
 
-def grab(youtube_url, timeout=15):
-    with open("../youtube.json", 'r') as js:
-        cookies = json.load(js)
+def get_live_url(channel_id: str) -> str | None:
+    url = f"https://www.youtube.com/channel/{channel_id}/live"
         
-    ydl_opts = {
-        'quiet': True,  # 禁止冗长输出
-        'format': 'best',  # 选择最佳质量的流
-        'extractor_args': {'youtube': {'live': True}},  # 提取直播流
-        'cookiefile': "../netscape.txt"  # 提供 cookies 文件
-    }
+    try:
+        r = requests.get(url, allow_redirects=True, timeout=10)
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(youtube_url, download=False)
-        m3u8_url = info_dict['url']  # 获取 .m3u8 流地址
-        if m3u8_url:
-            print(m3u8_url)
-            return 
-        else:
-            print("https://xxxx.m3u8")
-            return    
+        if "watch?v=" in r.url:
+            return r.url
+
+        return None
+
+    except Exception as e:
+        print("error:", e)
+        return None
+
+    if __name__ == "__main__":
+    channel_id = "UC5nwNW4KdC0SzrhF9BXEYOQ"
+
+    live_url = get_live_url(channel_id)
+
+    if live_url:
+        print("LIVE URL:", live_url)
+    else:
+        print("No live stream")  
 
 with open('../youtube_channel_info.txt') as f:
     for line in f:
         line = line.strip()
-        if not line or line.startswith('~~'):
+        if not line:
             continue
-        if not line.startswith('https:'):
-            line = line.split('|')
-            ch_name = line[0].strip()
-            grp_title = line[1].strip().title()
-            tvg_logo = line[2].strip()
-            tvg_id = line[3].strip()
-            print(f'\n#EXTINF:-1 group-title="{grp_title}" tvg-logo="{tvg_logo}" tvg-id="{tvg_id}", {ch_name}')
+        if line.startswith('#EXTINF:'):
+            print(f'\n' + line)
         else:
             grab(line)
