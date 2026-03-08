@@ -33,6 +33,6 @@ with open('../youtube_channel_info.txt') as f:
         if not line:
             continue
         if line.startswith('#EXTINF:'):
-            print(f'\nttttt')
+            print('https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u')
         else:
-            print(f'\nxxxx')
+            print('https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_n2a.m3u')
