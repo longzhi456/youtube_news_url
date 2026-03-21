@@ -3,6 +3,7 @@
 echo $(dirname $0)
 
 python3 -m pip install requests
+python3 -m pip install yt-dlp
 
 cd $(dirname $0)/scripts/
 
