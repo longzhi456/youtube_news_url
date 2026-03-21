@@ -3,10 +3,12 @@
 import requests
 
 with open('../youtube_channel_info.txt') as f:
-    print('https://111.m3u')
+    print('#EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}"')
     for line in f:
         line = line.strip()
         if line.startswith('#EXTINF:-1'):
             print(line)
         else:
-            print(f'\nhttps://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na1.m3u')
+            line = line.split('|')
+            ch_id = line[1].strip()
+            print(ch_id)
