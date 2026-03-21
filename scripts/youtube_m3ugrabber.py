@@ -8,19 +8,18 @@ def grab(ch_id):
         return
 
     url = f"https://www.youtube.com/channel/{ch_id}/live"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    html = requests.get(url, headers=headers).text
 
-    result = subprocess.run(
-        ["yt-dlp", "-g", "-f", "best", url],
-        capture_output=True,
-        text=True
-    )
-
-    m3u8_url = result.stdout.strip()
-    if not m3u8_url:
+    match = re.search(r'"videoId":"(.*?)"', html)
+    if not match:
         print('https://yyyy.m3u')
-        return
+        exit()
+
+    video_id = match.group(1)
+    watch_url = f"https://www.youtube.com/watch?v={video_id}"
             
-    print(m3u8_url)
+    print(watch_url)
 
 with open('../youtube_channel_info.txt') as f:
     print('#EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}"')
