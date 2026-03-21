@@ -7,20 +7,24 @@ def grab(ch_id):
         print('https://xxxx.m3u')
         return
 
-    try:
-        video_id = subprocess.check_output(
-            [
-                "yt-dlp",
-                "--get-id",
-                f"https://www.youtube.com/channel/{ch_id}/live"
-            ],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()
+    result = subprocess.run(
+        [
+            "yt-dlp",
+            "-g",
+            "--match-filter", "is_live",
+            f"https://www.youtube.com/channel/{ch_id}/videos"
+        ],
+        capture_output=True,
+        text=True
+    )
 
-        if video_id:
-            print(f"https://www.youtube.com/watch?v={video_id}")
-        else:
-            print('https://yyyy.m3u')
+    if result.returncode == 0:
+        url = result.stdout.strip()
+        if url:
+            print(url)
+            return
+            
+    print('https://yyyy.m3u')
 
     except Exception as e:
         print("ERROR:", e)
