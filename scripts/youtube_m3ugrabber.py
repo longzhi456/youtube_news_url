@@ -8,6 +8,10 @@ def grab(ch_id):
         return
 
     url = f"https://www.youtube.com/channel/{ch_id}/live"
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
     try:
         r = requests.get(url, allow_redirects=True, timeout=10)
         if "watch?v=" in r.url:
