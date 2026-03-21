@@ -14,10 +14,10 @@ def grab(ch_id):
             print(r.url)
             return
 
-        print('https://xxxx.m3u')
+        print('https://yyyy.m3u')
 
     except Exception as e:
-        print('https://xxxx.m3u')
+        print('https://eeee.m3u')
 
 with open('../youtube_channel_info.txt') as f:
     print('#EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}"')
