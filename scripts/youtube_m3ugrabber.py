@@ -7,28 +7,20 @@ def grab(ch_id):
         print('https://xxxx.m3u')
         return
 
+    url = f"https://www.youtube.com/channel/{ch_id}/live"
+
     result = subprocess.run(
-        [
-            "yt-dlp",
-            "-g",
-            "--match-filter", "is_live",
-            f"https://www.youtube.com/channel/{ch_id}/videos"
-        ],
+        ["yt-dlp", "-g", "-f", "best", url],
         capture_output=True,
         text=True
     )
 
-    if result.returncode == 0:
-        url = result.stdout.strip()
-        if url:
-            print(url)
-            return
+    m3u8_url = result.stdout.strip()
+    if not m3u8_url:
+        print('https://yyyy.m3u')
+        return
             
-    print('https://yyyy.m3u')
-
-    except Exception as e:
-        print("ERROR:", e)
-        print('https://eeee.m3u')
+    print(m3u8_url)
 
 with open('../youtube_channel_info.txt') as f:
     print('#EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}"')
