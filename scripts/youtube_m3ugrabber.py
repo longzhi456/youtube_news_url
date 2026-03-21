@@ -17,4 +17,4 @@ with open('../youtube_channel_info.txt') as f:
         else:
             line = line.split('|')
             ch_id = line[1].strip()
-            print(ch_id)
+            grab(ch_id)
