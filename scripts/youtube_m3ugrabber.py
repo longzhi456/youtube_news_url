@@ -23,6 +23,7 @@ def grab(ch_id):
             print('https://yyyy.m3u')
 
     except Exception as e:
+        print("ERROR:", e)
         print('https://eeee.m3u')
 
 with open('../youtube_channel_info.txt') as f:
