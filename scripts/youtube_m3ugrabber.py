@@ -19,7 +19,7 @@ def grab(ch_id):
     video_id = match.group(1)
     watch_url = f"https://www.youtube.com/watch?v={video_id}"
             
-    print(watch_url)
+    print(match)
 
 with open('../youtube_channel_info.txt') as f:
     print('#EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}"')
