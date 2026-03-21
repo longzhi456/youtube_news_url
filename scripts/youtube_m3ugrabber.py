@@ -1,24 +1,26 @@
 #! /usr/bin/python3
 
-import requests
+import subprocess
 
 def grab(ch_id):
     if not ch_id:
         print('https://xxxx.m3u')
         return
 
-    url = f"https://www.youtube.com/channel/{ch_id}/live"
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
-
     try:
-        r = requests.get(url, allow_redirects=True, timeout=10)
-        if "watch?v=" in r.url:
-            print(r.url)
-            return
+        video_id = subprocess.check_output(
+            [
+                "yt-dlp",
+                "--get-id",
+                f"https://www.youtube.com/channel/{ch_id}/live"
+            ],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
 
-        print('https://yyyy.m3u')
+        if video_id:
+            print(f"https://www.youtube.com/watch?v={video_id}")
+        else:
+            print('https://yyyy.m3u')
 
     except Exception as e:
         print('https://eeee.m3u')
